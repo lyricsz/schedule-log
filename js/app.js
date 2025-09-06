@@ -90,9 +90,12 @@ class AddSchedule{
 
         summaryEl.textContent = this.globalObject[this.globalObject.length] = indexLog + appendNumbering + " Log";
 
-        window.localStorage.setItem(indexLog + "xox121scheduleLog", this.globalObject);
-        window.localStorage.setItem(indexLog + "xox121scheduleLogArr", this.scheduleArr);
-        window.localStorage.setItem(indexLog + "xox121scheduleLogArr", logArea.value);
+        if (this.display) {
+            window.localStorage.setItem(indexLog + "xox121scheduleLog", this.globalObject);
+            window.localStorage.setItem(indexLog + "xox121scheduleLogArr", this.scheduleArr);
+            window.localStorage.setItem(indexLog + "xox121scheduleLogTxt", logArea.value);
+        }
+        
 
         detailsEl.appendChild(summaryEl);
         detailsEl.appendChild(sectionEl);
@@ -141,6 +144,7 @@ saveToday.onclick = () => {
     })
 
     for (let i = 1; i <= indexLog; i++){
+        console.log(array[i-1])
         window.localStorage.setItem(i + "xox121scheduleLogArr", String(array[i-1]) + ",")
     }
 }
@@ -157,6 +161,7 @@ clearSchedule.onclick = () => {
     for (let i = 1; i <= indexLog; i++){
         window.localStorage.removeItem(i + "xox121scheduleLog");
         window.localStorage.removeItem(i + "xox121scheduleLogArr");
+        window.localStorage.removeItem(i + "xox121scheduleLogArrTxt");
     }
 }
 
@@ -183,6 +188,8 @@ function addPrevSaved(){
     lists.forEach((el, index) => {
         let newT = window.localStorage.getItem(index + 1 + "xox121scheduleLogArr") || "";
 
+        console.log(newT)
+
         let arrayT = []
 
         const log = window.localStorage.getItem(index + 1 + "xox121scheduleLogTxt");
@@ -197,6 +204,8 @@ function addPrevSaved(){
 
             arrayT.push(current_string);
         }
+
+        console.log(arrayT)
         
         indexLog++
 
